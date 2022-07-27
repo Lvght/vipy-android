@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#DDDDDDFF</color>
     <color name="surface">#F5F5F5</color>
+    <color name="text_name">#5B5B5B</color>
+    <color name="text_username">#989FAB</color>
+    <color name="input_color">#E8E8E8</color>
 </resources>
