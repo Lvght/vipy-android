@@ -2,6 +2,8 @@
     <string name="app_name">Vipy</string>
     <string name="welcome">BEM-VINDO(A)</string>
     <string name="username">NOME DE USUÁRIO</string>
+    <string name="displayname">NOME</string>
+    <string name="email">EMAIL</string>
     <string name="password">SENHA</string>
     <string name="digiteAqui">Digite aqui</string>
     <string name="entrar">Entrar</string>
