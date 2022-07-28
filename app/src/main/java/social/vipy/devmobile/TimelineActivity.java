@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import social.vipy.devmobile.databinding.TimelineBinding;
 
@@ -24,11 +26,11 @@ public class TimelineActivity extends AppCompatActivity {
         binding = TimelineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste"));
-        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste"));
-        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste"));
-        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste"));
-        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste"));
+        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 10));
+        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 122));
+        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 50));
+        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 27));
+        posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 1));
 
 //        if(savedInstanceState != null) {
 //            posts = (ArrayList<Post>) savedInstanceState.getSerializable("posts");
@@ -39,6 +41,17 @@ public class TimelineActivity extends AppCompatActivity {
         binding.postListRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         postRecyclerViewAdapter = new PostRecyclerViewAdapter(TimelineActivity.this, posts);
         binding.postListRecyclerView.setAdapter(postRecyclerViewAdapter);
+
+        binding.sendPostButton.setOnClickListener(view -> {
+            String content = binding.contentEditText.getText().toString();
+            if(content != ""){
+                Collections.reverse(posts);
+                posts.add(new Post(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), content, false, 0));
+                Collections.reverse(posts);
+                postRecyclerViewAdapter.notifyDataSetChanged();
+                binding.contentEditText.setText("");
+            }
+        });
 
     }
 }

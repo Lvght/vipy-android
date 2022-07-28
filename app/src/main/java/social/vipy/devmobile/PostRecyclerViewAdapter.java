@@ -1,13 +1,19 @@
 package social.vipy.devmobile;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder> {
@@ -38,14 +44,68 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String name = mData.get(position).getAuthor().getDisplay_name();
-        String username = mData.get(position).getAuthor().getUsername();
-        String content = mData.get(position).getContent();
+        Post post = mData.get(position);
+        String name = post.getAuthor().getDisplay_name();
+        String username =post.getAuthor().getUsername();
+        String content = post.getContent();
+        int counter = post.getReactionCounter();
 
         holder.nameTextView.setText(name);
         holder.usernameTextView.setText(username);
         holder.contentTextView.setText(content);
+        holder.counterTextView.setText(String.valueOf(counter));
 
+        setReactionButtonLayout(holder, post.getReacted());
+
+
+        holder.reactionButton.setOnClickListener(view -> {
+            post.setReacted(!post.getReacted());
+            if(post.getReacted()){
+                addReaction(holder);
+            } else {
+                removeReaction(holder);
+            }
+        });
+
+    }
+
+    private void addReaction(ViewHolder holder) {
+        int currentCounter = Integer.parseInt(holder.counterTextView.getText().toString());
+        int newReactionCounter = currentCounter + 1;
+
+        holder.counterTextView.setTextColor(
+                ContextCompat.getColor(holder.reactionButton.getContext(),
+                R.color.active_reaction_counter));
+
+        holder.counterTextView.setText(String.valueOf(newReactionCounter));
+        setReactionButtonLayout(holder, true);
+    }
+
+    private void removeReaction(ViewHolder holder) {
+        int currentCounter = Integer.parseInt(holder.counterTextView.getText().toString());
+        int newReactionCounter = currentCounter - 1;
+
+        holder.counterTextView.setTextColor(
+                ContextCompat.getColor(holder.reactionButton.getContext(),
+                        R.color.inactive_reaction_counter));
+
+        holder.counterTextView.setText(String.valueOf(newReactionCounter));
+        setReactionButtonLayout(holder, false);
+    }
+
+    private void setReactionButtonLayout(ViewHolder holder, Boolean isActive){
+        int color = isActive ? R.color.active_reaction_icon : R.color.inactive_reaction_icon;
+        int drawable =  isActive ? R.drawable.reaction_button_active_shape : R.drawable.reaction_button_inactive_shape;
+
+        holder.reactionButton.setColorFilter(
+                ContextCompat.getColor(holder.reactionButton.getContext(), color),
+                android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        holder.reactionButton.setBackground(
+                ContextCompat.getDrawable(
+                        holder.reactionButton.getContext(),
+                        drawable)
+        );
     }
 
     // total number of rows
@@ -61,13 +121,17 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         TextView nameTextView;
         TextView usernameTextView;
         TextView contentTextView;
-
+        TextView counterTextView;
+        ImageButton reactionButton;
 
         ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
             contentTextView = itemView.findViewById(R.id.contentTextView);
+            reactionButton = itemView.findViewById(R.id.reactionButton);
+            counterTextView = itemView.findViewById(R.id.counterTextView);
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
