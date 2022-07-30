@@ -18,6 +18,9 @@
     <string name="crushButton">Crush</string>
     <string name="moreMenuButton">Mais</string>
     <string name="menuPerfilButton">Perfil</string>
+    <string name="menuPostsButton">Posts</string>
+    <string name="menuReacoesButton">Reações</string>
+    <string name="menuGaleriaButton">Galeria</string>
     <string name="todo">TODO</string>
     <string name="t">TODO</string>
 
