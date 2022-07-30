@@ -9,5 +9,6 @@
     <string name="entrar">Entrar</string>
     <string name="criaConta">Criar conta</string>
     <string name="novoPorAqui">Novo por aqui?</string>
+    <string name="wrongUsernameOrPassword">"Username ou senha Incorretos"</string>
 
 </resources>

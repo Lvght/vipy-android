@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vipy">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -20,9 +23,10 @@
         </activity>
         <activity
             android:name=".TimelineActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
-                <action android:name="candroid.intent.action.TIMELINE"/>
+                <action android:name="candroid.intent.action.TIMELINE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
