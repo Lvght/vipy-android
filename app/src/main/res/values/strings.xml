@@ -9,5 +9,16 @@
     <string name="entrar">Entrar</string>
     <string name="criaConta">Criar conta</string>
     <string name="novoPorAqui">Novo por aqui?</string>
+    <string name="follerwrs">17 seguidores</string>
+    <string name="following">seguindo 21</string>
+    <string name="followYou">segue você</string>
+    <string name="checkUser">Verificado</string>
+    <string name="bioUser">Per aspera ad astra</string>
+    <string name="followingButton">Seguir</string>
+    <string name="crushButton">Crush</string>
+    <string name="moreMenuButton">Mais</string>
+    <string name="menuPerfilButton">Perfil</string>
+    <string name="todo">TODO</string>
+    <string name="t">TODO</string>
 
 </resources>
