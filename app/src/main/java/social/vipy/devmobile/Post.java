@@ -1,16 +1,26 @@
 package social.vipy.devmobile;
 
 public class Post {
+    int id;
     User author;
     String content;
     Boolean reacted;
     int reactionCounter;
 
-    public Post(User author, String content, Boolean reacted, int reactionCounter) {
+    public Post(int id, User author, String content, Boolean reacted, int reactionCounter) {
+        this.id = id;
         this.author = author;
         this.content = content;
         this.reacted = reacted;
         this.reactionCounter = reactionCounter;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getAuthor() {

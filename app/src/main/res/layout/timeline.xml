@@ -31,14 +31,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layoutDirection="ltr"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="100dp">
 
@@ -54,27 +53,29 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layoutDirection="rtl"
                     android:orientation="horizontal"
                     android:paddingRight="8dp">
 
                     <ImageButton
                         android:id="@+id/sendPostButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="bottom"
                         android:background="#00FFFFFF"
                         app:srcCompat="@drawable/ic_send" />
 
                     <EditText
                         android:id="@+id/contentEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:hint="@string/digiteAqui"
-                        android:inputType="textShortMessage"
+                        android:inputType="textMultiLine"
+                        android:layoutDirection="ltr"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:textColorHint="@android:color/darker_gray"
@@ -102,5 +103,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/postListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>
