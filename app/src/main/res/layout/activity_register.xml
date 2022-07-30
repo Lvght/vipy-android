@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/UsernameInput"
+            android:id="@+id/NameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -31,6 +31,7 @@
             android:ems="10"
             android:hint="@string/digiteAqui"
             android:inputType="textPersonName"
+            app:errorEnabled="true"
             android:minHeight="48dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -45,12 +46,13 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/nameInput"
+            android:id="@+id/EmailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/input_style"
             android:ems="10"
+            app:errorEnabled="true"
             android:hint="@string/digiteAqui"
             android:inputType="textPersonName"
             android:minHeight="48dp"
@@ -73,33 +75,38 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="@string/digiteAqui"
             android:inputType="textPassword"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             android:minHeight="48dp"
+            app:hintEnabled="false"
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PasswordInputInternal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/input_style"
+                android:hint="@string/digiteAqui"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
-                android:inputType="textPassword" />
+                app:errorEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/entrar"
-            android:layout_width="match_parent"
+            android:id="@+id/criarConta"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:backgroundTint="#449AFF"
+            android:background="@drawable/gradient_button"
             android:gravity="center_horizontal|center_vertical"
             android:hapticFeedbackEnabled="false"
             android:text="@string/criaConta"
-            app:cornerRadius="20dp" />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
