@@ -1,7 +1,9 @@
 package social.vipy.devmobile;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,9 +17,12 @@ import java.util.List;
 
 public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
     private ReactionClickListener mReactionClickListener;
+    private OptionsClickListener mOptionsClickListener;
 
-    public PostAdapter() {
+    public PostAdapter(ReactionClickListener mReactionClickListener, OptionsClickListener mOptionsClickListener) {
         super(DIFF_CALLBACK);
+        this.mReactionClickListener = mReactionClickListener;
+        this.mOptionsClickListener = mOptionsClickListener;
     }
 
     @NonNull
@@ -43,12 +48,17 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
 
         setReactionButtonLayout(holder, post.getReacted());
 
+        holder.optionsButton.setOnClickListener(view -> {
+            mOptionsClickListener.onOptionsClick(view, holder.getAdapterPosition());
+        });
+
         holder.reactionButton.setOnClickListener(view -> {
             if(mReactionClickListener != null){
-                mReactionClickListener.onReactionClick(view, position);
+                mReactionClickListener.onReactionClick(view, holder.getAdapterPosition());
             }
         });
     }
+
 
     private void setReactionButtonLayout(ViewHolder holder, Boolean isActive){
         int color = isActive ? R.color.active_reaction_icon : R.color.inactive_reaction_icon;
@@ -71,6 +81,7 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
         TextView contentTextView;
         TextView counterTextView;
         ImageButton reactionButton;
+        ImageButton optionsButton;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -79,7 +90,11 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
             contentTextView = itemView.findViewById(R.id.contentTextView);
             reactionButton = itemView.findViewById(R.id.reactionButton);
             counterTextView = itemView.findViewById(R.id.counterTextView);
+            optionsButton = itemView.findViewById(R.id.optionsButton);
+
+
         }
+
     }
 
     public static final DiffUtil.ItemCallback<Post> DIFF_CALLBACK =
@@ -98,11 +113,19 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
                 }
             };
 
+    void setOptionsClickListener(OptionsClickListener optionsClickListener) {
+        this.mOptionsClickListener = optionsClickListener;
+    }
+
     void setReactionClickListener(ReactionClickListener reactionClickListener) {
         this.mReactionClickListener = reactionClickListener;
     }
 
     public interface ReactionClickListener {
         void onReactionClick(View view, int position);
+    }
+
+    public interface OptionsClickListener {
+        void onOptionsClick(View view, int position);
     }
 }
