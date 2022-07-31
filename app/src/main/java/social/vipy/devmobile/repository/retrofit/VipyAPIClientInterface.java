@@ -9,7 +9,11 @@ import social.vipy.devmobile.repository.VipyTokenPair;
 
 public interface VipyAPIClientInterface {
     final String LOGIN = "/profiles/login/";
+    final String REFRESH = "/profiles/refresh/";
 
     @POST(LOGIN)
     public Call<VipyTokenPair> login(@Body String username, @Body String password, @Body String deviceName);
+
+    @POST(REFRESH)
+    public Call<VipyTokenPair> refresh(@Body String refresh);
 }
