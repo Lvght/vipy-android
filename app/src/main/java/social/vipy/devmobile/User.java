@@ -1,5 +1,10 @@
 package social.vipy.devmobile;
 
+import androidx.room.Entity;
+
+import java.util.HashMap;
+
+
 public class User {
     String username;
     String email;
@@ -33,5 +38,14 @@ public class User {
 
     public void setDisplay_name(String display_name) {
         this.display_name = display_name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", display_name='" + display_name + '\'' +
+                '}';
     }
 }

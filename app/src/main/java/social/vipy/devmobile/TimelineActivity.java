@@ -39,12 +39,12 @@ public class TimelineActivity extends AppCompatActivity {
         binding.sendPostButton.setOnClickListener(this::onSendClick);
     }
 
-    private void onReactionClick(View view, int position){
+    private void onReactionClick(View view, int position) {
         timelineViewModel.reactToPost(position);
         postRecyclerViewAdapter.notifyItemChanged(position);
     }
 
-    private void onOptionsClick(View view, int position){
+    private void onOptionsClick(View view, int position) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.getMenuInflater().inflate(R.menu.popup_post_actions, popup.getMenu());
         popup.setOnMenuItemClickListener(item -> {
@@ -60,7 +60,7 @@ public class TimelineActivity extends AppCompatActivity {
         popup.show();
     }
 
-    private void onSendClick(View view){
+    private void onSendClick(View view) {
         String content = binding.contentEditText.getText().toString();
         timelineViewModel.addPost(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), content, false, 0);
         binding.contentEditText.setText("");

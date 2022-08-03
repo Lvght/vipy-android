@@ -9,6 +9,8 @@ import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import social.vipy.devmobile.User;
+import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.VipyTokenPair;
 
 public interface VipyAPIClientInterface {
@@ -16,7 +18,7 @@ public interface VipyAPIClientInterface {
     final String REFRESH = "/profiles/refresh/";
 
     @POST(LOGIN)
-    public Call<JsonElement> login(@Body HashMap<String, String> content);
+    public Call<VipyLoginResponse> login(@Body HashMap<String, String> content);
 
     @POST(REFRESH)
     public Call<VipyTokenPair> refresh(@Body String refresh);
