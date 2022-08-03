@@ -5,6 +5,7 @@
     <string name="displayname">NOME</string>
     <string name="email">EMAIL</string>
     <string name="password">SENHA</string>
+    <string name="birthday">DATA DE NASCIMENTO</string>
     <string name="digiteAqui">Digite aqui</string>
     <string name="entrar">Entrar</string>
     <string name="criaConta">Criar conta</string>

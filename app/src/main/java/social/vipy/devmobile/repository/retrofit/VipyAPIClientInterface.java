@@ -16,9 +16,13 @@ import social.vipy.devmobile.repository.VipyTokenPair;
 public interface VipyAPIClientInterface {
     final String LOGIN = "/profiles/login/";
     final String REFRESH = "/profiles/refresh/";
+    final String REGISTER = "/profiles/register/";
 
     @POST(LOGIN)
     public Call<VipyLoginResponse> login(@Body HashMap<String, String> content);
+
+    @POST(REGISTER)
+    public Call<User> register(@Body HashMap<String, String> content);
 
     @POST(REFRESH)
     public Call<VipyTokenPair> refresh(@Body String refresh);

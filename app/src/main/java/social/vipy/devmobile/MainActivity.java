@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 loginViewModel.username = binding.UsernameInput.getText().toString();
                 loginViewModel.password = binding.PasswordInputInternal.getText().toString();
 
-                // TODO Fazer requisição
-
-                boolean erro = false;
-
                 VipyAPIClientInterface client =
                         BaseAPIClient.getClient().create(VipyAPIClientInterface.class);
 
@@ -90,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                                             preferences.edit().putString("login_info", loginInfoJson).apply();
 
+                                            // TODO Adicionar roteamento.
 
                                             break;
                                         case 403:

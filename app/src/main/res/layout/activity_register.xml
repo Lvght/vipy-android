@@ -52,12 +52,12 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/input_style"
             android:ems="10"
-            app:errorEnabled="true"
             android:hint="@string/digiteAqui"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            app:errorEnabled="true"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
@@ -95,6 +95,30 @@
                 app:boxStrokeWidthFocused="0dp"
                 app:errorEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/birthdayField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/birthday"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/birthdayInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/input_style"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/digiteAqui"
+            android:inputType="none"
+            android:minHeight="48dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:errorEnabled="true"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
             android:id="@+id/criarConta"
