@@ -27,10 +27,13 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         timelineViewModel = new ViewModelProvider(TimelineActivity.this).get(TimelineViewModel.class);
 
+
         binding.postListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.postListRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         postRecyclerViewAdapter = new PostAdapter(this::onReactionClick, this::onOptionsClick);
         binding.postListRecyclerView.setAdapter(postRecyclerViewAdapter);
+
+        timelineViewModel.setAdapter(postRecyclerViewAdapter);
 
         timelineViewModel.getPosts().observe(TimelineActivity.this, postRecyclerViewAdapter::submitList);
 
@@ -39,7 +42,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void onReactionClick(View view, int position) {
         timelineViewModel.reactToPost(position);
-        postRecyclerViewAdapter.notifyItemChanged(position);
+        postRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     private void onOptionsClick(View view, int position) {

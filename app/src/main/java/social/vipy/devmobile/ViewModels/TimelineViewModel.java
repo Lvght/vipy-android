@@ -11,20 +11,25 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import social.vipy.devmobile.MainActivity;
 import social.vipy.devmobile.Post;
+import social.vipy.devmobile.PostAdapter;
 import social.vipy.devmobile.TimelineActivity;
 import social.vipy.devmobile.User;
+import social.vipy.devmobile.repository.PostReactionInfo;
+import social.vipy.devmobile.repository.Reaction;
 import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.retrofit.APIClient;
 import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
@@ -32,23 +37,31 @@ import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
 public class TimelineViewModel extends ViewModel {
     private MutableLiveData<List<Post>> posts;
     int currentId;
+    PostAdapter adapter;
+
+    public PostAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(PostAdapter adapter) {
+        this.adapter = adapter;
+    }
+
     public LiveData<List<Post>> getPosts() {
         if (posts == null) {
             posts = new MutableLiveData<List<Post>>();
 
             VipyAPIClientInterface client =
                     APIClient.getClient().create(VipyAPIClientInterface.class);
-            Log.d("tagger", "casasd?");
 
             Call<List<Post>> call = client.getTimeline();
 
-            Log.d("tagger", "casas?");
             call.enqueue(
                     new Callback<List<Post>>() {
                         @Override
                         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                             try {
-                            Log.d("tagger", "Código de status do getPosts " + String.valueOf(response.code()));
+                                Log.d("tagger", "Código de status do getPosts " + String.valueOf(response.code()));
                                 switch (response.code()) {
                                     case 200:
                                         Log.d("tagger", String.valueOf(response.body()));
@@ -84,6 +97,7 @@ public class TimelineViewModel extends ViewModel {
 //            ));
 //            currentId = 6;
         }
+
         return posts;
     }
 
@@ -103,17 +117,42 @@ public class TimelineViewModel extends ViewModel {
     }
 
     public void reactToPost(int index) {
-//        Post post = getPost(index);
-//        post.setReacted(!post.getReacted());
-//
-//        if(post.getReacted())
-//            post.setReactionCounter(post.getReactionCounter()+1);
-//        else
-//            post.setReactionCounter(post.getReactionCounter()-1);
-//
-//        List<Post> newList = new ArrayList<Post>(posts.getValue());
-//        newList.set(index, post);
-//        posts.setValue(newList);
+
+        VipyAPIClientInterface client =
+                APIClient.getClient().create(VipyAPIClientInterface.class);
+
+        HashMap<String, Integer> payload = new HashMap<String, Integer>() {{
+            put("type", 1);
+        }};
+
+        Call<Reaction> call = client.reactToPost(payload, posts.getValue().get(index).getId());
+
+        call.enqueue(
+                new Callback<Reaction>() {
+                    @Override
+                    public void onResponse(Call<Reaction> call, Response<Reaction> response) {
+
+                        if (response.code() == 201) {
+                            Reaction newReaction = response.body();
+
+                            Post p = posts.getValue().get(index);
+                            p.setNewUserReaction(newReaction);
+
+                            ArrayList<Post> newPostList = (ArrayList<Post>) posts.getValue();
+                            newPostList.set(index, p);
+
+                            posts.postValue(newPostList);
+                            adapter.notifyItemChanged(index);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Reaction> call, Throwable t) {
+                        System.out.println("Erro ao fazer requisição");
+                        t.printStackTrace();
+                    }
+                }
+        );
     }
 
     public void removePost(int index) {

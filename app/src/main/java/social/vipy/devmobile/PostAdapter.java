@@ -47,6 +47,8 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
         holder.contentTextView.setText(content);
         holder.counterTextView.setText(String.valueOf(counter));
 
+        Log.d("tagger", "PostAdapter: isUserReacted? " + post.reactions.isUserReacted());
+
         setReactionButtonLayout(holder, post.reactions.isUserReacted());
 
         holder.optionsButton.setOnClickListener(view -> {
@@ -109,6 +111,12 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
                 // it decides if the object needs to redraw
                 @Override
                 public boolean areContentsTheSame(Post oldItem, Post newItem) {
+
+                    Log.d("tagger", "PostAdapter: areContentsTheSame? " + oldItem.getContent() + " " + newItem.getContent());
+                    Log.d("tagger", "PostAdapter: content: " + oldItem.getContent().equals(newItem.getContent()));
+                    Log.d("tagger", "Reaction counter: " + oldItem.reactions.getReactionsCounter() + " " + newItem.reactions.getReactionsCounter());
+                    Log.d("tagger", "Reaction isUserReacted: " + oldItem.reactions.isUserReacted() + " " + newItem.reactions.isUserReacted());
+
                     return (oldItem.getContent().equals(newItem.getContent()) &&
                             oldItem.reactions.getReactionsCounter() == newItem.reactions.getReactionsCounter() &&
                             oldItem.reactions.isUserReacted() == newItem.reactions.isUserReacted());

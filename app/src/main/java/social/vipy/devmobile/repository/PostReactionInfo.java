@@ -17,6 +17,19 @@ public class PostReactionInfo {
         this.user_reaction = userReaction;
     }
 
+    public PostReactionInfo(PostReactionInfo postReactionInfo) {
+        this.r1 = postReactionInfo.r1;
+        this.r2 = postReactionInfo.r2;
+        this.r3 = postReactionInfo.r3;
+        this.r4 = postReactionInfo.r4;
+        this.user_reaction = postReactionInfo.user_reaction;
+    }
+
+    public void appendReaction(Reaction reaction) {
+        this.user_reaction.add(reaction);
+        this.r1 = this.r1 + 1;
+    }
+
     public int getReactionsCounter() {
         return r1 + r2 + r3 + r4;
     }
@@ -59,6 +72,10 @@ public class PostReactionInfo {
 
     public List<Reaction> getUser_reaction() {
         return user_reaction;
+    }
+
+    public void addUserReaction(Reaction reaction) {
+        user_reaction.add(reaction);
     }
 
     public void setUser_reaction(List<Reaction> user_reaction) {
