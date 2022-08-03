@@ -17,11 +17,11 @@ public class TimelineViewModel extends ViewModel {
         if (posts == null) {
             posts = new MutableLiveData<List<Post>>();
             posts.setValue(Arrays.asList(
-                    new Post(1, new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 10),
-                    new Post(2, new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 122),
-                    new Post(3, new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 50),
-                    new Post(4, new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 27),
-                    new Post(5, new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 1)
+                    new Post(1, new User(0,"@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 10),
+                    new Post(2, new User(0,"@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 122),
+                    new Post(3, new User(0,"@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 50),
+                    new Post(4, new User(0,"@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 27),
+                    new Post(5, new User(0,"@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), "teste", false, 1)
             ));
             currentId = 6;
         }

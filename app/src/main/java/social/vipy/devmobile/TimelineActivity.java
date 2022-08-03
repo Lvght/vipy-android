@@ -62,7 +62,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void onSendClick(View view) {
         String content = binding.contentEditText.getText().toString();
-        timelineViewModel.addPost(new User("@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), content, false, 0);
+        timelineViewModel.addPost(new User(0, "@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), content, false, 0);
         binding.contentEditText.setText("");
         postRecyclerViewAdapter.notifyDataSetChanged();
     }

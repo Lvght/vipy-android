@@ -6,14 +6,24 @@ import java.util.HashMap;
 
 
 public class User {
-    String username;
-    String email;
-    String display_name;
+    private int id;
+    private String username;
+    private String email;
+    private String display_name;
 
-    public User(String username, String email, String display_name) {
+    public User(int id, String username, String email, String display_name) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.display_name = display_name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -43,7 +53,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", display_name='" + display_name + '\'' +
                 '}';

@@ -86,7 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
                                             preferences.edit().putString("login_info", loginInfoJson).apply();
 
-                                            // TODO Adicionar roteamento.
+                                            // Substitui o intent atual por um novo.
+                                            Intent intent = getIntent();
+                                            finish();
+
+                                            intent = new Intent(MainActivity.this, TimelineActivity.class);
+                                            startActivity(intent);
 
                                             break;
                                         case 403:

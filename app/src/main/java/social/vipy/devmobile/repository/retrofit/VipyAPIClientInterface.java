@@ -3,12 +3,14 @@ package social.vipy.devmobile.repository.retrofit;
 import com.google.gson.JsonElement;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import social.vipy.devmobile.Post;
 import social.vipy.devmobile.User;
 import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.VipyTokenPair;
@@ -26,4 +28,7 @@ public interface VipyAPIClientInterface {
 
     @POST(REFRESH)
     public Call<VipyTokenPair> refresh(@Body String refresh);
+
+    @GET
+    public Call<List<Post>> getTimeline();
 }
