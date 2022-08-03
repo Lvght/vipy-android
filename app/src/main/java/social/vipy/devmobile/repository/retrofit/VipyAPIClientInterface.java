@@ -1,5 +1,9 @@
 package social.vipy.devmobile.repository.retrofit;
 
+import com.google.gson.JsonElement;
+
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
@@ -12,7 +16,7 @@ public interface VipyAPIClientInterface {
     final String REFRESH = "/profiles/refresh/";
 
     @POST(LOGIN)
-    public Call<VipyTokenPair> login(@Body String username, @Body String password, @Body String deviceName);
+    public Call<JsonElement> login(@Body HashMap<String, String> content);
 
     @POST(REFRESH)
     public Call<VipyTokenPair> refresh(@Body String refresh);
