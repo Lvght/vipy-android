@@ -29,6 +29,13 @@ public class Post {
         this.reactions = reactions;
     }
 
+    public Post(Post post) {
+        this.id = post.id;
+        this.author = post.author;
+        this.content = post.content;
+        this.reactions = post.reactions;
+    }
+
     public int getId() {
         return id;
     }

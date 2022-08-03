@@ -11,8 +11,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import social.vipy.devmobile.Post;
 import social.vipy.devmobile.User;
+import social.vipy.devmobile.repository.Reaction;
 import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.VipyTokenPair;
 
@@ -21,6 +23,7 @@ public interface VipyAPIClientInterface {
     final String REFRESH = "/profiles/refresh/";
     final String REGISTER = "/profiles/register/";
     final String POSTS = "/posts/";
+    final String REACT_TO_POST = "/posts/{id}/reactions/";
 
     @POST(LOGIN)
     public Call<VipyLoginResponse> login(@Body HashMap<String, String> content);
@@ -33,4 +36,7 @@ public interface VipyAPIClientInterface {
 
     @GET(POSTS)
     public Call<List<Post>> getTimeline();
+
+    @POST(REACT_TO_POST)
+    public Call<Reaction> reactToPost(@Body HashMap<String, Integer> payload, @Path("id") int id);
 }
