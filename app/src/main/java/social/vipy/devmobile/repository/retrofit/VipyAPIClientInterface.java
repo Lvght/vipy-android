@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -24,6 +25,7 @@ public interface VipyAPIClientInterface {
     final String REGISTER = "/profiles/register/";
     final String POSTS = "/posts/";
     final String REACT_TO_POST = "/posts/{id}/reactions/";
+    final String REMOVE_REACT = "/posts/{id}/reactions/{rid}/";
 
     @POST(LOGIN)
     public Call<VipyLoginResponse> login(@Body HashMap<String, String> content);
@@ -39,4 +41,7 @@ public interface VipyAPIClientInterface {
 
     @POST(REACT_TO_POST)
     public Call<Reaction> reactToPost(@Body HashMap<String, Integer> payload, @Path("id") int id);
+
+    @DELETE(REMOVE_REACT)
+    public Call<Void> removeReact(@Path("id") int id, @Path("rid") int rid);
 }

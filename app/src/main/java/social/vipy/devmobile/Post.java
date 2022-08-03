@@ -3,6 +3,9 @@ package social.vipy.devmobile;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import social.vipy.devmobile.repository.PostReactionInfo;
 import social.vipy.devmobile.repository.Reaction;
 
@@ -39,6 +42,9 @@ public class Post {
 
     public void setNewUserReaction(Reaction reaction) {
         this.reactions.appendReaction(reaction);
+    }
+    public void removeUserReaction() {
+        this.reactions.setUser_reaction(new ArrayList<Reaction>());
     }
 
     public int getId() {

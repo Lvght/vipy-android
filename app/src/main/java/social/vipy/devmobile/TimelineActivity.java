@@ -41,7 +41,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void onReactionClick(View view, int position) {
-        timelineViewModel.reactToPost(position);
+        if (timelineViewModel.getPost(position).getReactions().isUserReacted()){
+            timelineViewModel.removeReaction(position);
+        }else {
+            timelineViewModel.reactToPost(position);
+
+        }
         postRecyclerViewAdapter.notifyDataSetChanged();
     }
 
