@@ -7,14 +7,14 @@ public class PostReactionInfo {
     private int r2;
     private int r3;
     private int r4;
-    private List<Integer> userReaction;
+    private List<Reaction> user_reaction;
 
-    public PostReactionInfo(int r1, int r2, int r3, int r4, List<Integer> userReaction) {
+    public PostReactionInfo(int r1, int r2, int r3, int r4, List<Reaction> userReaction) {
         this.r1 = r1;
         this.r2 = r2;
         this.r3 = r3;
         this.r4 = r4;
-        this.userReaction = userReaction;
+        this.user_reaction = userReaction;
     }
 
     public int getReactionsCounter() {
@@ -22,7 +22,7 @@ public class PostReactionInfo {
     }
 
     public boolean isUserReacted() {
-        return userReaction != null && userReaction.size() > 0;
+        return user_reaction != null && user_reaction.size() > 0;
     }
 
     public int getR1() {
@@ -57,12 +57,12 @@ public class PostReactionInfo {
         this.r4 = r4;
     }
 
-    public List<Integer> getUserReaction() {
-        return userReaction;
+    public List<Reaction> getUser_reaction() {
+        return user_reaction;
     }
 
-    public void setUserReaction(List<Integer> userReaction) {
-        this.userReaction = userReaction;
+    public void setUser_reaction(List<Reaction> user_reaction) {
+        this.user_reaction = user_reaction;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class PostReactionInfo {
                 ", r2=" + r2 +
                 ", r3=" + r3 +
                 ", r4=" + r4 +
-                ", userReaction=" + userReaction +
+                ", userReaction=" + user_reaction +
                 '}';
     }
 }
