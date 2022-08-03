@@ -25,7 +25,6 @@ import social.vipy.devmobile.ViewModels.LoginViewModel;
 import social.vipy.devmobile.databinding.ActivityMainBinding;
 import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.retrofit.APIClient;
-import social.vipy.devmobile.repository.retrofit.BaseAPIClient;
 import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 loginViewModel.password = binding.PasswordInputInternal.getText().toString();
 
                 VipyAPIClientInterface client =
-                        BaseAPIClient.getClient().create(VipyAPIClientInterface.class);
+                        APIClient.getNonAuthenticatedClient().create(VipyAPIClientInterface.class);
 
                 Call<VipyLoginResponse> call = client.login(
                         new HashMap<String, String>() {{

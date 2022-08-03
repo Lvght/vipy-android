@@ -35,77 +35,73 @@ public class TokenAuthenticator implements Authenticator {
 
     @Override
     public Request authenticate(Route route, Response response) throws IOException {
-        Retrofit client = BaseAPIClient.getClient();
-        Log.d("tagger", "entrei sim");
+        VipyAPIClientInterface client =
+                APIClient.getNonAuthenticatedClient()
+                        .create(VipyAPIClientInterface.class);
+
+        Log.d("tagger", "Interceptor de requisição não autorizada invocado.");
         Gson gson = new Gson();
 
         // Faz o parsing do usuário atual, caso exista.
         String userJson = preferences.getString("login_info", null);
         VipyLoginResponse loginInfo = gson.fromJson(userJson, VipyLoginResponse.class);
-        final String refreshToken = loginInfo.getTokens().getRefreshToken();
+
+        String oldToken, refreshToken;
+
+        if (loginInfo != null) {
+            refreshToken = oldToken = loginInfo.getTokens().getRefreshToken();
+            accessToken = loginInfo.getTokens().getAccessToken();
+        } else {
+            oldToken = refreshToken = accessToken = null;
+        }
+
+        if (refreshToken == null) {
+            Log.d("tagger", "Não há token de refresh, não é possível fazer o refresh.");
+            return null;
+        }
+
         HashMap<String, String> payload = new HashMap<String, String>() {{
             put("refresh", refreshToken);
         }};
-        Call<VipyTokenPair> tokenPair = client.create(VipyAPIClientInterface.class)
-                .refresh(payload);
-        accessToken = loginInfo.getTokens().getAccessToken();
 
-        tokenPair.enqueue(
-                new Callback<VipyTokenPair>() {
-                    @Override
-                    public void onResponse(Call<VipyTokenPair> call, retrofit2.Response<VipyTokenPair> refreshResponse) {
-                        Log.d("tagger", "status " + String.valueOf(refreshResponse.code()));
+//        Call<VipyTokenPair> tokenPair = client.create(VipyAPIClientInterface.class)
+//                .refresh(payload);
 
-                        try {
+        retrofit2.Response<VipyTokenPair> refreshResponse = client.refresh(payload).execute();
 
-                            switch (refreshResponse.code()) {
-                                case 200:
-                                    Log.d("tagger", String.valueOf(refreshResponse.body()));
+        switch (refreshResponse.code()) {
+            case 200:
+                Log.d("tagger", String.valueOf(refreshResponse.body()));
 
-                                    String json = refreshResponse.body().toString();
+                VipyTokenPair vipyTokenPair = refreshResponse.body();
+                Log.d("tagger", String.valueOf(vipyTokenPair));
 
-                                    VipyTokenPair VTokenPain = gson.fromJson(json, VipyTokenPair.class);
-                                    Log.d("tagger", String.valueOf(VTokenPain));
+                accessToken = vipyTokenPair.getAccessToken();
 
-                                    accessToken = VTokenPain.getAccessToken();
+                loginInfo.setTokens(vipyTokenPair);
+                String loginInfoJson = (new Gson()).toJson(loginInfo);
 
-                                    loginInfo.setTokens(VTokenPain);
-                                    String loginInfoJson = (new Gson()).toJson(loginInfo);
-                                    preferences.edit().putString("login_info", loginInfoJson).apply();
+                preferences.edit()
+                        .putString("login_info", loginInfoJson)
+                        .apply();
+
+                break;
 
 
-                                default:
-                                    preferences.edit().remove("login_info").apply();
+            default:
+                preferences.edit().remove("login_info").apply();
+                Log.d("tagger", "Não foi possível obter um novo token.");
+                break;
+        }
 
-                                    break;
-                            }
+        Log.d("tagger", "Sending request with new token: " + accessToken);
+//        Log.d("tagger", oldToken.equals(accessToken) ? "O token NÃO foi atualizado." : "O token foi atualizado.");
 
-
-                        } catch (Exception e) {
-                            System.out.println("Erro desconhecido.");
-                            System.out.println(e.getMessage());
-                            e.printStackTrace();
-                            preferences.edit().remove("login_info").apply();
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<VipyTokenPair> call, Throwable t) {
-                        System.out.println("Erro ao fazer requisição");
-                        preferences.edit().remove("login_info").apply();
-                        t.printStackTrace();
-                    }
-                }
-        );
-
+        String authHeader = "Bearer " + accessToken;
 
         return response.request()
                 .newBuilder()
-                .header("Authorization", "Bearer " + accessToken)
+                .header("Authorization", authHeader)
                 .build();
-
-
     }
 }

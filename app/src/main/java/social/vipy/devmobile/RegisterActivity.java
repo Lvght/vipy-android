@@ -17,7 +17,7 @@ import social.vipy.devmobile.ViewModels.LoginViewModel;
 import social.vipy.devmobile.ViewModels.RegisterViewModel;
 import social.vipy.devmobile.databinding.ActivityMainBinding;
 import social.vipy.devmobile.databinding.ActivityRegisterBinding;
-import social.vipy.devmobile.repository.retrofit.BaseAPIClient;
+import social.vipy.devmobile.repository.retrofit.APIClient;
 import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -62,7 +62,9 @@ public class RegisterActivity extends AppCompatActivity {
                         // todo fazer a requisição
                         try {
 
-                            VipyAPIClientInterface client = BaseAPIClient.getClient().create(VipyAPIClientInterface.class);
+                            VipyAPIClientInterface client =
+                                    APIClient.getNonAuthenticatedClient()
+                                            .create(VipyAPIClientInterface.class);
 
                             // TODO Terminar cadastro.
 

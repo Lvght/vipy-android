@@ -27,7 +27,6 @@ import social.vipy.devmobile.TimelineActivity;
 import social.vipy.devmobile.User;
 import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.retrofit.APIClient;
-import social.vipy.devmobile.repository.retrofit.BaseAPIClient;
 import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
 
 public class TimelineViewModel extends ViewModel {
@@ -49,7 +48,7 @@ public class TimelineViewModel extends ViewModel {
                         @Override
                         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                             try {
-                            Log.d("tagger", "HAHAHAHA " + String.valueOf(response.code()));
+                            Log.d("tagger", "Código de status do getPosts " + String.valueOf(response.code()));
                                 switch (response.code()) {
                                     case 200:
                                         Log.d("tagger", String.valueOf(response.body()));
