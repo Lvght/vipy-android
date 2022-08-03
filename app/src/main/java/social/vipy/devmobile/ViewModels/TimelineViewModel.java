@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import social.vipy.devmobile.MainActivity;
 import social.vipy.devmobile.Post;
+import social.vipy.devmobile.PostAdapter;
 import social.vipy.devmobile.TimelineActivity;
 import social.vipy.devmobile.User;
 import social.vipy.devmobile.repository.PostReactionInfo;
@@ -36,6 +37,15 @@ import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
 public class TimelineViewModel extends ViewModel {
     private MutableLiveData<List<Post>> posts;
     int currentId;
+    PostAdapter adapter;
+
+    public PostAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(PostAdapter adapter) {
+        this.adapter = adapter;
+    }
 
     public LiveData<List<Post>> getPosts() {
         if (posts == null) {
@@ -87,6 +97,7 @@ public class TimelineViewModel extends ViewModel {
 //            ));
 //            currentId = 6;
         }
+
         return posts;
     }
 
@@ -106,83 +117,42 @@ public class TimelineViewModel extends ViewModel {
     }
 
     public void reactToPost(int index) {
-        Post post = new Post(getPost(index));
-        PostReactionInfo reactionInfo = post.getReactions();
 
-        // Usuário possui reação?
-        boolean userHasReacted = !reactionInfo.getUser_reaction().isEmpty();
+        VipyAPIClientInterface client =
+                APIClient.getClient().create(VipyAPIClientInterface.class);
 
-        if (userHasReacted) {
-            // Todo Excluir reação do usuário
+        HashMap<String, Integer> payload = new HashMap<String, Integer>() {{
+            put("type", 1);
+        }};
 
-        } else {
-            VipyAPIClientInterface client =
-                    APIClient.getClient().create(VipyAPIClientInterface.class);
+        Call<Reaction> call = client.reactToPost(payload, posts.getValue().get(index).getId());
 
-            HashMap<String, Integer> payload = new HashMap<String, Integer>() {{
-                put("type", 1);
-            }};
+        call.enqueue(
+                new Callback<Reaction>() {
+                    @Override
+                    public void onResponse(Call<Reaction> call, Response<Reaction> response) {
 
-            Call<Reaction> call = client.reactToPost(payload, post.getId());
+                        if (response.code() == 201) {
+                            Reaction newReaction = response.body();
 
-            call.enqueue(
-                    new Callback<Reaction>() {
-                        @Override
-                        public void onResponse(Call<Reaction> call, Response<Reaction> response) {
-                            if (response.code() == 201) {
+                            Post p = posts.getValue().get(index);
+                            p.setNewUserReaction(newReaction);
 
-                                PostReactionInfo newReactionInfo = new PostReactionInfo(post.getReactions());
-                                List<Reaction> currentUserReactions = newReactionInfo.getUser_reaction();
-                                currentUserReactions.add(response.body());
+                            ArrayList<Post> newPostList = (ArrayList<Post>) posts.getValue();
+                            newPostList.set(index, p);
 
-                                newReactionInfo.setUser_reaction(currentUserReactions);
-
-                                newReactionInfo.addUserReaction(response.body());
-                                newReactionInfo.setR1(2000);
-
-                                Log.d("Are counters the same? ", newReactionInfo.getR1() + " " + post.getReactions().getR1());
-
-                                post.setReactions(
-                                        new PostReactionInfo(
-                                                newReactionInfo.getR1(),
-                                                newReactionInfo.getR2(),
-                                                newReactionInfo.getR3(),
-                                                newReactionInfo.getR4(),
-                                                Collections.singletonList(response.body())
-                                        )
-                                );
-
-                                List<Post> newList =
-                                        new ArrayList<Post>(posts.getValue());
-
-//                                newList = posts.getValue();
-                                newList.set(index, post);
-
-                                newList.set(index, post);
-
-                                Log.d("tagger", "Reação no índice " + String.valueOf(index));
-                                Log.d("tagger", newList.get(index).getReactions().getUser_reaction().isEmpty() + "");
-
-//                                newList.set(index, post);
-
-                                posts.setValue(newList);
-
-                                Log.d("tagger", "Post: " + posts.getValue().get(0));
-                                Log.d("tagger", "User reacted? " + posts.getValue().get(0).getReactions().isUserReacted());
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<Reaction> call, Throwable t) {
-                            Log.d("tagger", "Erro ao criar reação.");
-                            t.printStackTrace();
+                            posts.postValue(newPostList);
+                            adapter.notifyItemChanged(index);
                         }
                     }
-            );
-        }
 
-
+                    @Override
+                    public void onFailure(Call<Reaction> call, Throwable t) {
+                        System.out.println("Erro ao fazer requisição");
+                        t.printStackTrace();
+                    }
+                }
+        );
     }
 
     public void removePost(int index) {

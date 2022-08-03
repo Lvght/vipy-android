@@ -117,7 +117,7 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
                     Log.d("tagger", "Reaction counter: " + oldItem.reactions.getReactionsCounter() + " " + newItem.reactions.getReactionsCounter());
                     Log.d("tagger", "Reaction isUserReacted: " + oldItem.reactions.isUserReacted() + " " + newItem.reactions.isUserReacted());
 
-                    return !(oldItem.getContent().equals(newItem.getContent()) &&
+                    return (oldItem.getContent().equals(newItem.getContent()) &&
                             oldItem.reactions.getReactionsCounter() == newItem.reactions.getReactionsCounter() &&
                             oldItem.reactions.isUserReacted() == newItem.reactions.isUserReacted());
                 }

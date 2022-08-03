@@ -25,6 +25,11 @@ public class PostReactionInfo {
         this.user_reaction = postReactionInfo.user_reaction;
     }
 
+    public void appendReaction(Reaction reaction) {
+        this.user_reaction.add(reaction);
+        this.r1 = this.r1 + 1;
+    }
+
     public int getReactionsCounter() {
         return r1 + r2 + r3 + r4;
     }
