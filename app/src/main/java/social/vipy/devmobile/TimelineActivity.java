@@ -1,7 +1,6 @@
 package social.vipy.devmobile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.List;
-
+import social.vipy.devmobile.ViewModels.TimelineViewModel;
 import social.vipy.devmobile.databinding.TimelineBinding;
 
 

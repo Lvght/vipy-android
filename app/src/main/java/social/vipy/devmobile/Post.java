@@ -1,9 +1,20 @@
 package social.vipy.devmobile;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Post {
+    @SerializedName("id")
+    @Expose
     int id;
+    @SerializedName("author")
+    @Expose
     User author;
+    @SerializedName("content")
+    @Expose
     String content;
+
+    // todo
     Boolean reacted;
     int reactionCounter;
 
@@ -11,8 +22,9 @@ public class Post {
         this.id = id;
         this.author = author;
         this.content = content;
-        this.reacted = reacted;
-        this.reactionCounter = reactionCounter;
+        this.reacted = false;
+        this.reactionCounter = 0;
+
     }
 
     public int getId() {
@@ -39,7 +51,7 @@ public class Post {
         this.content = content;
     }
 
-    public Boolean getReacted() {return reacted;}
+    public Boolean getReacted() {return false;}
 
     public void setReacted(Boolean reacted) { this.reacted = reacted; }
 

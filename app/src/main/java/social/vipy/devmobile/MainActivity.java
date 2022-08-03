@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("user_data", MODE_PRIVATE);
         Gson gson = new Gson();
+        APIClient.preferences = preferences;
 
         // Faz o parsing do usuário atual, caso exista.
         String userJson = preferences.getString("login_info", null);
@@ -50,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
         if (userJson != null) {
             VipyLoginResponse loginInfo = gson.fromJson(userJson, VipyLoginResponse.class);
             Log.d("vipyinfo", loginInfo.toString());
+            Intent intent = getIntent();
+            finish();
+
+            intent = new Intent(MainActivity.this, TimelineActivity.class);
+            startActivity(intent);
+
         }
 
 
@@ -85,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                                             String loginInfoJson = (new Gson()).toJson(response.body());
 
                                             preferences.edit().putString("login_info", loginInfoJson).apply();
-
+                                            APIClient.preferences = preferences;
                                             // Substitui o intent atual por um novo.
                                             Intent intent = getIntent();
                                             finish();
