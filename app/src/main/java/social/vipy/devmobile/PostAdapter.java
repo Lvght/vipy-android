@@ -1,4 +1,5 @@
 package social.vipy.devmobile;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,30 +40,30 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
         String name = post.getAuthor().getDisplay_name();
         String username = post.getAuthor().getUsername();
         String content = post.getContent();
-        int counter = post.getReactionCounter();
+        int counter = post.reactions.getReactionsCounter();
 
         holder.nameTextView.setText(name);
         holder.usernameTextView.setText(username);
         holder.contentTextView.setText(content);
         holder.counterTextView.setText(String.valueOf(counter));
 
-        setReactionButtonLayout(holder, post.getReacted());
+        setReactionButtonLayout(holder, post.reactions.isUserReacted());
 
         holder.optionsButton.setOnClickListener(view -> {
             mOptionsClickListener.onOptionsClick(view, holder.getAdapterPosition());
         });
 
         holder.reactionButton.setOnClickListener(view -> {
-            if(mReactionClickListener != null){
+            if (mReactionClickListener != null) {
                 mReactionClickListener.onReactionClick(view, holder.getAdapterPosition());
             }
         });
     }
 
 
-    private void setReactionButtonLayout(ViewHolder holder, Boolean isActive){
+    private void setReactionButtonLayout(ViewHolder holder, Boolean isActive) {
         int color = isActive ? R.color.active_reaction_icon : R.color.inactive_reaction_icon;
-        int drawable =  isActive ? R.drawable.reaction_button_active_shape : R.drawable.reaction_button_inactive_shape;
+        int drawable = isActive ? R.drawable.reaction_button_active_shape : R.drawable.reaction_button_inactive_shape;
 
         holder.reactionButton.setColorFilter(
                 ContextCompat.getColor(holder.reactionButton.getContext(), color),
@@ -104,12 +105,13 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
                 public boolean areItemsTheSame(Post oldItem, Post newItem) {
                     return oldItem.getId() == newItem.getId();
                 }
+
                 // it decides if the object needs to redraw
                 @Override
                 public boolean areContentsTheSame(Post oldItem, Post newItem) {
                     return (oldItem.getContent().equals(newItem.getContent()) &&
-                            oldItem.getReactionCounter() == newItem.getReactionCounter() &&
-                            oldItem.getReacted().equals(newItem.getReacted()));
+                            oldItem.reactions.getReactionsCounter() == newItem.reactions.getReactionsCounter() &&
+                            oldItem.reactions.isUserReacted() == newItem.reactions.isUserReacted());
                 }
             };
 

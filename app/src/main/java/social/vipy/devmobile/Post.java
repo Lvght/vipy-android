@@ -3,28 +3,30 @@ package social.vipy.devmobile;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import social.vipy.devmobile.repository.PostReactionInfo;
+
 public class Post {
     @SerializedName("id")
     @Expose
     int id;
+
     @SerializedName("author")
     @Expose
     User author;
+
     @SerializedName("content")
     @Expose
     String content;
 
-    // todo
-    Boolean reacted;
-    int reactionCounter;
+    @SerializedName("reactions")
+    @Expose
+    PostReactionInfo reactions;
 
-    public Post(int id, User author, String content, Boolean reacted, int reactionCounter) {
+    public Post(int id, User author, String content, PostReactionInfo reactions) {
         this.id = id;
         this.author = author;
         this.content = content;
-        this.reacted = false;
-        this.reactionCounter = 0;
-
+        this.reactions = reactions;
     }
 
     public int getId() {
@@ -51,16 +53,21 @@ public class Post {
         this.content = content;
     }
 
-    public Boolean getReacted() {return false;}
-
-    public void setReacted(Boolean reacted) { this.reacted = reacted; }
-
-    public int getReactionCounter() {
-        return reactionCounter;
+    public PostReactionInfo getReactions() {
+        return reactions;
     }
 
-    public void setReactionCounter(int reactionCounter) {
-        this.reactionCounter = reactionCounter;
+    public void setReactions(PostReactionInfo reactions) {
+        this.reactions = reactions;
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", author=" + author +
+                ", content='" + content + '\'' +
+                ", reactions=" + reactions +
+                '}';
+    }
 }

@@ -88,14 +88,14 @@ public class TimelineViewModel extends ViewModel {
     }
 
     public void addPost(User author, String content, Boolean reacted, int reactionCounter) {
-        if(content != ""){
-            List<Post> newList = new ArrayList<Post>(posts.getValue());
-            Collections.reverse(newList);
-            newList.add(new Post(currentId, author, content, reacted, reactionCounter));
-            Collections.reverse(newList);
-            currentId++;
-            posts.setValue(newList);
-        }
+//        if(content != ""){
+//            List<Post> newList = new ArrayList<Post>(posts.getValue());
+//            Collections.reverse(newList);
+//            newList.add(new Post(currentId, author, content, reacted, reactionCounter));
+//            Collections.reverse(newList);
+//            currentId++;
+//            posts.setValue(newList);
+//        }
     }
 
     public Post getPost(int index) {
@@ -103,17 +103,17 @@ public class TimelineViewModel extends ViewModel {
     }
 
     public void reactToPost(int index) {
-        Post post = getPost(index);
-        post.setReacted(!post.getReacted());
-
-        if(post.getReacted())
-            post.setReactionCounter(post.getReactionCounter()+1);
-        else
-            post.setReactionCounter(post.getReactionCounter()-1);
-
-        List<Post> newList = new ArrayList<Post>(posts.getValue());
-        newList.set(index, post);
-        posts.setValue(newList);
+//        Post post = getPost(index);
+//        post.setReacted(!post.getReacted());
+//
+//        if(post.getReacted())
+//            post.setReactionCounter(post.getReactionCounter()+1);
+//        else
+//            post.setReactionCounter(post.getReactionCounter()-1);
+//
+//        List<Post> newList = new ArrayList<Post>(posts.getValue());
+//        newList.set(index, post);
+//        posts.setValue(newList);
     }
 
     public void removePost(int index) {
