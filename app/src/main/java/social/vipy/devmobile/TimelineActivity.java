@@ -72,7 +72,7 @@ public class TimelineActivity extends AppCompatActivity {
         Post post = timelineViewModel.getPost(position);
         User user = post.getAuthor();
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("userId", user.getId());
+        intent.putExtra("userId", String.valueOf(user.getId()));
         startActivity(intent);
     }
 
