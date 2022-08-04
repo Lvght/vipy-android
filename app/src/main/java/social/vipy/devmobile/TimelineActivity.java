@@ -1,5 +1,6 @@
 package social.vipy.devmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,7 +31,8 @@ public class TimelineActivity extends AppCompatActivity {
 
         binding.postListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.postListRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        postRecyclerViewAdapter = new PostAdapter(this::onReactionClick, this::onOptionsClick);
+        postRecyclerViewAdapter = new PostAdapter(this::onReactionClick, this::onOptionsClick, this::onAvatarClick);
+
         binding.postListRecyclerView.setAdapter(postRecyclerViewAdapter);
 
         timelineViewModel.setAdapter(postRecyclerViewAdapter);
@@ -66,10 +68,21 @@ public class TimelineActivity extends AppCompatActivity {
         popup.show();
     }
 
+    private void onAvatarClick(View view, int position) {
+        Post post = timelineViewModel.getPost(position);
+        User user = post.getAuthor();
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("userId", user.getId());
+        startActivity(intent);
+    }
+
     private void onSendClick(View view) {
         String content = binding.contentEditText.getText().toString();
         timelineViewModel.addPost(new User(0, "@lordlucas4", "lucas_mcid@hotmail.com", "Lucas"), content, false, 0);
         binding.contentEditText.setText("");
         postRecyclerViewAdapter.notifyDataSetChanged();
     }
+
+
+
 }

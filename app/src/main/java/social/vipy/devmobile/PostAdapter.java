@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +20,14 @@ import java.util.List;
 public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
     private ReactionClickListener mReactionClickListener;
     private OptionsClickListener mOptionsClickListener;
+    private AvatarClickListener mAvatarClickListener;
 
-    public PostAdapter(ReactionClickListener mReactionClickListener, OptionsClickListener mOptionsClickListener) {
+
+    public PostAdapter(ReactionClickListener mReactionClickListener, OptionsClickListener mOptionsClickListener, AvatarClickListener mAvatarClickListener) {
         super(DIFF_CALLBACK);
         this.mReactionClickListener = mReactionClickListener;
         this.mOptionsClickListener = mOptionsClickListener;
+        this.mAvatarClickListener = mAvatarClickListener;
     }
 
     @NonNull
@@ -46,6 +50,9 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
         holder.usernameTextView.setText(username);
         holder.contentTextView.setText(content);
         holder.counterTextView.setText(String.valueOf(counter));
+        holder.avatarView.setOnClickListener(view -> {
+            mAvatarClickListener.onAvatarClick(view, holder.getAdapterPosition());
+        });
 
         Log.d("tagger", "PostAdapter: isUserReacted? " + post.reactions.isUserReacted());
 
@@ -85,6 +92,8 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
         TextView counterTextView;
         ImageButton reactionButton;
         ImageButton optionsButton;
+        ImageView avatarView;
+
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -94,7 +103,7 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
             reactionButton = itemView.findViewById(R.id.reactionButton);
             counterTextView = itemView.findViewById(R.id.counterTextView);
             optionsButton = itemView.findViewById(R.id.optionsButton);
-
+            avatarView = itemView.findViewById(R.id.avatar);
 
         }
 
@@ -137,5 +146,9 @@ public class PostAdapter extends ListAdapter<Post, PostAdapter.ViewHolder> {
 
     public interface OptionsClickListener {
         void onOptionsClick(View view, int position);
+    }
+
+    public interface AvatarClickListener {
+        void onAvatarClick(View view, int position);
     }
 }

@@ -34,6 +34,16 @@
         </activity>
 
         <activity
+            android:name=".ProfileActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="candroid.intent.action.Profile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ValidateRegistrationActivity"
             android:exported="true">
             <intent-filter>
