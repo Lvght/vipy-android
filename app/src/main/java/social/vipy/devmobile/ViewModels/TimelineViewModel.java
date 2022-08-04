@@ -224,8 +224,33 @@ public class TimelineViewModel extends ViewModel {
 
     public void removePost(int index) {
         List<Post> newList = new ArrayList<Post>(posts.getValue());
-        newList.remove(index);
-        posts.setValue(newList);
+
+        VipyAPIClientInterface client =
+                APIClient.getClient().create(VipyAPIClientInterface.class);
+
+        Post p = posts.getValue().get(index);
+        int postId = p.getId();
+
+        Call<Void> call = client.deletePost(String.valueOf(postId));
+
+        call.enqueue(
+                new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.code() == 204) {
+                            newList.remove(index);
+                            posts.setValue(newList);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        System.out.println("Erro ao fazer requisição");
+                        t.printStackTrace();
+                    }
+                }
+        );
+
     }
 }
 

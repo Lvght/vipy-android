@@ -25,6 +25,7 @@ public interface VipyAPIClientInterface {
     final String REFRESH = "/profiles/refresh/";
     final String REGISTER = "/profiles/register/";
     final String POSTS = "/posts/";
+    final String DELETE_POST = "/posts/{id}/";
     final String REACT_TO_POST = "/posts/{id}/reactions/";
     final String REMOVE_REACT = "/posts/{id}/reactions/{rid}/";
     final String PROFILES = "/profiles/{id}/";
@@ -44,6 +45,9 @@ public interface VipyAPIClientInterface {
 
     @GET(PROFILES)
     public Call<Profile> getProfile(@Path("id") String id);
+
+    @DELETE(DELETE_POST)
+    public Call<Void> deletePost(@Path("id") String id);
 
     @POST(POSTS)
     public Call<Post> createPost(@Body HashMap<String, String> content);
