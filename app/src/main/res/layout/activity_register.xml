@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Username"
+            android:id="@+id/display_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/NameInput"
+            android:id="@+id/displayNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -31,10 +31,33 @@
             android:ems="10"
             android:hint="@string/digiteAqui"
             android:inputType="textPersonName"
-            app:errorEnabled="true"
             android:minHeight="48dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            app:errorEnabled="true"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/username"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/usernameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/input_style"
+            android:ems="10"
+            android:hint="@string/digiteAqui"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:errorEnabled="true"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
@@ -46,7 +69,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/EmailInput"
+            android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -83,7 +106,7 @@
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/PasswordInputInternal"
+                android:id="@+id/passwordInputInternal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/input_style"

@@ -27,4 +27,6 @@
 
     <string name="criarPost">O que você está pensando?</string>
     <string name="delete">Deletar</string>
+    <string name="verificationCode">CÓDIGO DE VERIFICAÇÃO</string>
+    <string name="Verificar">Verificar</string>
 </resources>
