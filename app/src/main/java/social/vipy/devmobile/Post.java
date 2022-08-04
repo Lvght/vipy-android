@@ -44,7 +44,9 @@ public class Post {
         this.reactions.appendReaction(reaction);
     }
     public void removeUserReaction() {
+
         this.reactions.setUser_reaction(new ArrayList<Reaction>());
+        this.reactions.setR1(this.reactions.getR1()-1);
     }
 
     public int getId() {

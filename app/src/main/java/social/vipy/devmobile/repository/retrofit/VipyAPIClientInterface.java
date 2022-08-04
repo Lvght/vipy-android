@@ -39,6 +39,9 @@ public interface VipyAPIClientInterface {
     @GET(POSTS)
     public Call<List<Post>> getTimeline();
 
+    @POST(POSTS)
+    public Call<Post> createPost(@Body HashMap<String, String> content);
+
     @POST(REACT_TO_POST)
     public Call<Reaction> reactToPost(@Body HashMap<String, Integer> payload, @Path("id") int id);
 

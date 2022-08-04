@@ -65,6 +65,7 @@ public class TimelineViewModel extends ViewModel {
                                 switch (response.code()) {
                                     case 200:
                                         Log.d("tagger", String.valueOf(response.body()));
+                                        Collections.reverse(response.body());
                                         posts.setValue(response.body());
                                         break;
                                     default:
@@ -102,14 +103,44 @@ public class TimelineViewModel extends ViewModel {
     }
 
     public void addPost(User author, String content, Boolean reacted, int reactionCounter) {
-//        if(content != ""){
-//            List<Post> newList = new ArrayList<Post>(posts.getValue());
-//            Collections.reverse(newList);
-//            newList.add(new Post(currentId, author, content, reacted, reactionCounter));
-//            Collections.reverse(newList);
-//            currentId++;
-//            posts.setValue(newList);
-//        }
+        try {
+
+            VipyAPIClientInterface client =
+                    APIClient.getClient().create(VipyAPIClientInterface.class);
+
+            HashMap<String, String> payload = new HashMap<String, String>() {{
+                put("content", content);
+            }};
+
+            Call<Post> call = client.createPost(payload);
+
+            call.enqueue(
+                    new Callback<Post>() {
+                        @Override
+                        public void onResponse(Call<Post> call, Response<Post> response) {
+
+                            if (response.code() == 201) {
+                                Post post = response.body();
+
+
+                                ArrayList<Post> newPostList = (ArrayList<Post>) posts.getValue();
+                                newPostList.add(0, post);
+
+                                posts.postValue(newPostList);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Post> call, Throwable t) {
+                            System.out.println("Erro ao fazer requisição");
+                            t.printStackTrace();
+                        }
+                    }
+            );
+        } catch (Exception e){
+
+        }
     }
 
     public Post getPost(int index) {
