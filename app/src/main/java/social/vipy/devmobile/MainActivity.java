@@ -49,12 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (userJson != null) {
             VipyLoginResponse loginInfo = gson.fromJson(userJson, VipyLoginResponse.class);
-            Log.d("vipyinfo", loginInfo.toString());
-            Intent intent = getIntent();
-            finish();
 
-            intent = new Intent(MainActivity.this, TimelineActivity.class);
-            startActivity(intent);
+            if (loginInfo.getTokens() != null) {
+                Intent intent = getIntent();
+                finish();
+
+                intent = new Intent(MainActivity.this, TimelineActivity.class);
+                startActivity(intent);
+            }
+
 
         }
 

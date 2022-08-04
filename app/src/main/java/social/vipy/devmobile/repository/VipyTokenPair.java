@@ -4,6 +4,14 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class VipyTokenPair {
+
+    public VipyTokenPair() {}
+
+    public VipyTokenPair(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
+
     @SerializedName("access")
     @Expose
     private String accessToken = null;

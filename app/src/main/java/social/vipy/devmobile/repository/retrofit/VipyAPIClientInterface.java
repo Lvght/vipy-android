@@ -31,6 +31,7 @@ public interface VipyAPIClientInterface {
     final String POSTS = "/posts/";
     final String REACT_TO_POST = "/posts/{id}/reactions/";
     final String REMOVE_REACT = "/posts/{id}/reactions/{rid}/";
+    final String VALIDATE_REGISTRATION = "/profiles/verify/";
 
     @POST(LOGIN)
     public Call<VipyLoginResponse> login(@Body HashMap<String, String> content);
@@ -52,4 +53,7 @@ public interface VipyAPIClientInterface {
 
     @DELETE(REMOVE_REACT)
     public Call<Void> removeReact(@Path("id") int id, @Path("rid") int rid);
+
+    @POST(VALIDATE_REGISTRATION)
+    public Call<JsonElement> validateRegistration(@Body HashMap<String, String> content);
 }

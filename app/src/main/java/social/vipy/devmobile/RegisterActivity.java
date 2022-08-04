@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -26,6 +31,7 @@ import social.vipy.devmobile.ViewModels.LoginViewModel;
 import social.vipy.devmobile.ViewModels.RegisterViewModel;
 import social.vipy.devmobile.databinding.ActivityMainBinding;
 import social.vipy.devmobile.databinding.ActivityRegisterBinding;
+import social.vipy.devmobile.repository.VipyLoginResponse;
 import social.vipy.devmobile.repository.retrofit.APIClient;
 import social.vipy.devmobile.repository.retrofit.VipyAPIClientInterface;
 
@@ -121,9 +127,33 @@ public class RegisterActivity extends AppCompatActivity {
 
                                             if (response.code() == 201) {
                                                 Log.d("tagger", "Novo usuário: " + response.body().toString());
+
+                                                User user = response.body();
+                                                VipyLoginResponse loginInfo =
+                                                        new VipyLoginResponse(user, null);
+
+                                                Gson gson = new Gson();
+                                                String json = gson.toJson(loginInfo);
+
+                                                SharedPreferences preferences =
+                                                        getSharedPreferences("user_data", MODE_PRIVATE);
+
+                                                preferences.edit().putString("login_info", json).apply();
+
+                                                // Envia o usuário para a tela de verificação
+
+                                                Intent intent = getIntent();
+                                                finish();
+
+                                                intent = new Intent(
+                                                        RegisterActivity.this,
+                                                        ValidateRegistrationActivity.class
+                                                );
+                                                startActivity(intent);
+
                                             } else {
                                                 try {
-                                                    Log.d("tagger", "Resposta do errro: " + response.errorBody().string());
+                                                    Log.d("tagger", "Resposta do erro: " + response.errorBody().string());
                                                 } catch (IOException e) {
                                                     e.printStackTrace();
                                                 }

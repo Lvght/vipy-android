@@ -48,7 +48,7 @@ public class TokenAuthenticator implements Authenticator {
 
         String oldToken, refreshToken;
 
-        if (loginInfo != null) {
+        if (loginInfo != null && loginInfo.getTokens() != null) {
             refreshToken = oldToken = loginInfo.getTokens().getRefreshToken();
             accessToken = loginInfo.getTokens().getAccessToken();
         } else {

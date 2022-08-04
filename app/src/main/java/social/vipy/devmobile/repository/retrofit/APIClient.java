@@ -36,7 +36,6 @@ public class APIClient {
 
     public static Retrofit getClient() {
         if (client == null) {
-            Log.d("tagger", "oi rs");
             client = new Retrofit.Builder()
                     .client(new OkHttpClient.Builder()
                             .authenticator(new TokenAuthenticator(APIClient.preferences))
@@ -53,8 +52,9 @@ public class APIClient {
                                         VipyLoginResponse loginInfo =
                                                 (new Gson()).fromJson(storedData, VipyLoginResponse.class);
 
-                                        token = loginInfo.getTokens().getAccessToken();
-
+                                        if (loginInfo.getTokens() != null) {
+                                            token = loginInfo.getTokens().getAccessToken();
+                                        }
                                     }
 
                                     Request req = chain.request();
