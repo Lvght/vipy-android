@@ -10,8 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+
 import social.vipy.devmobile.ViewModels.TimelineViewModel;
 import social.vipy.devmobile.databinding.TimelineBinding;
+import social.vipy.devmobile.repository.VipyLoginResponse;
+import social.vipy.devmobile.repository.retrofit.APIClient;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -53,13 +57,26 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void onOptionsClick(View view, int position) {
+
+
+        Gson gson = new Gson();
+        String userJson = APIClient.preferences.getString("login_info", null);
+        VipyLoginResponse loginInfo = gson.fromJson(userJson, VipyLoginResponse.class);
+        if (timelineViewModel.getPost(position).getAuthor().getId() !=
+                loginInfo.getUser().getId()
+        ) return;
+
         PopupMenu popup = new PopupMenu(this, view);
         popup.getMenuInflater().inflate(R.menu.popup_post_actions, popup.getMenu());
+
         popup.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.delete_option:
+
+
                     timelineViewModel.removePost(position);
                     postRecyclerViewAdapter.notifyDataSetChanged();
+
                     return true;
                 default:
                     return false;
@@ -72,7 +89,7 @@ public class TimelineActivity extends AppCompatActivity {
         Post post = timelineViewModel.getPost(position);
         User user = post.getAuthor();
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("userId", user.getId());
+        intent.putExtra("userId", String.valueOf(user.getId()));
         startActivity(intent);
     }
 

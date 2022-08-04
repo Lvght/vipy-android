@@ -19,6 +19,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import social.vipy.devmobile.Post;
+import social.vipy.devmobile.Profile;
 import social.vipy.devmobile.User;
 import social.vipy.devmobile.repository.Reaction;
 import social.vipy.devmobile.repository.VipyLoginResponse;
@@ -29,8 +30,11 @@ public interface VipyAPIClientInterface {
     final String REFRESH = "/profiles/refresh/";
     final String REGISTER = "/profiles/";
     final String POSTS = "/posts/";
+    final String DELETE_POST = "/posts/{id}/";
     final String REACT_TO_POST = "/posts/{id}/reactions/";
     final String REMOVE_REACT = "/posts/{id}/reactions/{rid}/";
+    final String PROFILES = "/profiles/{id}/";
+
     final String VALIDATE_REGISTRATION = "/profiles/verify/";
 
     @POST(LOGIN)
@@ -44,6 +48,12 @@ public interface VipyAPIClientInterface {
 
     @GET(POSTS)
     public Call<List<Post>> getTimeline();
+
+    @GET(PROFILES)
+    public Call<Profile> getProfile(@Path("id") String id);
+
+    @DELETE(DELETE_POST)
+    public Call<Void> deletePost(@Path("id") String id);
 
     @POST(POSTS)
     public Call<Post> createPost(@Body HashMap<String, String> content);
