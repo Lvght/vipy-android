@@ -49,12 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (userJson != null) {
             VipyLoginResponse loginInfo = gson.fromJson(userJson, VipyLoginResponse.class);
-            Log.d("vipyinfo", loginInfo.toString());
-            Intent intent = getIntent();
-            finish();
 
-            intent = new Intent(MainActivity.this, TimelineActivity.class);
-            startActivity(intent);
+            if (loginInfo.getTokens() != null) {
+                Intent intent = getIntent();
+                finish();
+
+                intent = new Intent(MainActivity.this, TimelineActivity.class);
+                startActivity(intent);
+            }
+
 
         }
 
@@ -62,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         binding.Entrar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                loginViewModel.username = binding.UsernameInput.getText().toString();
-                loginViewModel.password = binding.PasswordInputInternal.getText().toString();
+                loginViewModel.username = binding.usernameInput.getText().toString();
+                loginViewModel.password = binding.passwordInputInternal.getText().toString();
 
                 VipyAPIClientInterface client =
                         APIClient.getNonAuthenticatedClient().create(VipyAPIClientInterface.class);
@@ -101,16 +104,16 @@ public class MainActivity extends AppCompatActivity {
 
                                             break;
                                         case 403:
-                                            binding.PasswordInputInternal.setError("Senha incorreta");
+                                            binding.passwordInputInternal.setError("Senha incorreta");
                                             break;
                                         case 404:
                                             // TODO abrir toast.
                                             System.out.println("Usuário não encontrado");
-                                            binding.UsernameInput.setError("Usuário não encontrado");
+                                            binding.usernameInput.setError("Usuário não encontrado");
                                             break;
                                         default:
                                             // 5XX
-                                            binding.UsernameInput.setError("Erro no servidor.");
+                                            binding.usernameInput.setError("Erro no servidor.");
                                             break;
                                     }
 
