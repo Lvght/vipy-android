@@ -104,16 +104,16 @@ public class MainActivity extends AppCompatActivity {
 
                                             break;
                                         case 403:
-                                            binding.passwordInputInternal.setError("Senha incorreta");
+                                            binding.passwordInputInternal.setError(getString(R.string.incorrectPassword));
                                             break;
                                         case 404:
                                             // TODO abrir toast.
-                                            System.out.println("Usuário não encontrado");
-                                            binding.usernameInput.setError("Usuário não encontrado");
+                                            System.out.println(getString(R.string.userNotFound));
+                                            binding.usernameInput.setError(getString(R.string.userNotFound));
                                             break;
                                         default:
                                             // 5XX
-                                            binding.usernameInput.setError("Erro no servidor.");
+                                            binding.usernameInput.setError(getString(R.string.serverError));
                                             break;
                                     }
 

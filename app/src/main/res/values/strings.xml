@@ -29,4 +29,7 @@
     <string name="delete">Deletar</string>
     <string name="verificationCode">CÓDIGO DE VERIFICAÇÃO</string>
     <string name="Verificar">Verificar</string>
+    <string name="serverError">Erro no servidor.</string>
+    <string name="incorrectPassword">Senha incorreta</string>
+    <string name="userNotFound">Usuário não encontrado</string>
 </resources>

@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Vipy</string>
+    <string name="welcome">WELCOME</string>
+    <string name="username">USERNAME</string>
+    <string name="displayname">NAME</string>
+    <string name="email">EMAIL</string>
+    <string name="password">PASSWORD</string>
+    <string name="birthday">BIRTHDAY</string>
+    <string name="digiteAqui">Type here</string>
+    <string name="entrar">Enter</string>
+    <string name="criaConta">Create account</string>
+    <string name="novoPorAqui">New around here?</string>
+    <string name="follerwrs">17 followers</string>
+    <string name="following">following 21</string>
+    <string name="followYou">follows you</string>
+    <string name="checkUser">Verified</string>
+    <string name="bioUser">Per aspera ad astra</string>
+    <string name="followingButton">Follow</string>
+    <string name="crushButton">Crush</string>
+    <string name="moreMenuButton">More</string>
+    <string name="menuPerfilButton">Profile</string>
+    <string name="menuPostsButton">Posts</string>
+    <string name="menuReacoesButton">Reactions</string>
+    <string name="menuGaleriaButton">Gallery</string>
+    <string name="todo">TODO</string>
+    <string name="t">TODO</string>
+
+    <string name="criarPost">What are you thinking?</string>
+    <string name="delete">Delete</string>
+    <string name="verificationCode">VERIFICATION CODE</string>
+    <string name="Verificar">Verify</string>
+    <string name="serverError">Server error.</string>
+    <string name="incorrectPassword">Incorrect password</string>
+    <string name="userNotFound">User not found</string>
+</resources>
