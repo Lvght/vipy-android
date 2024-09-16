@@ -5,9 +5,31 @@
     <string name="displayname">NOME</string>
     <string name="email">EMAIL</string>
     <string name="password">SENHA</string>
+    <string name="birthday">DATA DE NASCIMENTO</string>
     <string name="digiteAqui">Digite aqui</string>
     <string name="entrar">Entrar</string>
     <string name="criaConta">Criar conta</string>
     <string name="novoPorAqui">Novo por aqui?</string>
+    <string name="follerwrs">17 seguidores</string>
+    <string name="following">seguindo 21</string>
+    <string name="followYou">segue você</string>
+    <string name="checkUser">Verificado</string>
+    <string name="bioUser">Per aspera ad astra</string>
+    <string name="followingButton">Seguir</string>
+    <string name="crushButton">Crush</string>
+    <string name="moreMenuButton">Mais</string>
+    <string name="menuPerfilButton">Perfil</string>
+    <string name="menuPostsButton">Posts</string>
+    <string name="menuReacoesButton">Reações</string>
+    <string name="menuGaleriaButton">Galeria</string>
+    <string name="todo">TODO</string>
+    <string name="t">TODO</string>
 
+    <string name="criarPost">O que você está pensando?</string>
+    <string name="delete">Deletar</string>
+    <string name="verificationCode">CÓDIGO DE VERIFICAÇÃO</string>
+    <string name="Verificar">Verificar</string>
+    <string name="serverError">Erro no servidor.</string>
+    <string name="incorrectPassword">Senha incorreta</string>
+    <string name="userNotFound">Usuário não encontrado</string>
 </resources>

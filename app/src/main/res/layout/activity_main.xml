@@ -30,7 +30,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/Username"
+            android:id="@+id/display_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -38,7 +38,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/UsernameInput"
+            android:id="@+id/usernameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -76,7 +76,7 @@
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/PasswordInputInternal"
+                android:id="@+id/passwordInputInternal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/input_style"
